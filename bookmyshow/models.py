@@ -104,6 +104,7 @@ class Ticket(BaseModel):
     show_seats = models.ManyToManyField(ShowSeat)
     amount = models.IntegerField()
     booking_status = models.CharField(max_length=50)
+    booking_time = models.DateTimeField(default=timezone.now)
 
 
 class Payment(BaseModel):
@@ -112,6 +113,3 @@ class Payment(BaseModel):
     mode = models.CharField(max_length=50)
     status = models.CharField(max_length=50)
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-
-
-
