@@ -9,4 +9,4 @@ class CreateBookingRequestDto(serializers.Serializer):
 
 class CreateBookingResponseDto(serializers.Serializer):
     booking_id = serializers.IntegerField(required=False)
-    status = serializers.CharField(max_length=100)
+    response_status = serializers.CharField(max_length=10)

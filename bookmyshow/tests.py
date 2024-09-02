@@ -99,7 +99,7 @@ class BookShowTestCase(TransactionTestCase):
         request.data = request_data
         booking = self.view.create_booking(request)
 
-        print(booking.booking_id)
+        print(booking.data)
 
 
 

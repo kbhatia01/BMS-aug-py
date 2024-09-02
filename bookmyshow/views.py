@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
 # Create your views here.
-from bookmyshow.serializer import *
+from bookmyshow.serializer import CreateBookingResponseDto, CreateBookingRequestDto
 
 
 class BookingViewSet(viewsets.ViewSet):
@@ -24,10 +24,13 @@ class BookingViewSet(viewsets.ViewSet):
             )
 
             data = {
-                'booking_id': booking.booking_id,
-                'status': booking.status,
+                "booking_id": booking.id,
+                "response_status": booking.booking_status,
             }
-            return CreateBookingResponseDto(data)
+
+            val = CreateBookingResponseDto(data=data)
+            val.is_valid(raise_exception=True)
+            return Response(val.data)
         except Exception as e:
             print(e)
-            return CreateBookingResponseDto({"status": "ERROR"})
+            return Response(CreateBookingResponseDto(data={"response_status":"FAILED"}).data)
