@@ -79,11 +79,13 @@ WSGI_APPLICATION = 'BMS.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bmsAug24',
-        'USER': 'root',
-        'PASSWORD': '<PASSWORD>',
+        'NAME': 'BMS2Spet',
+        'USER': 'BMS2SeptUser',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+        'TEST': {
+            'MIRROR': 'default'
+        }
     }
 }
 

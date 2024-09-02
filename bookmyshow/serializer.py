@@ -6,3 +6,7 @@ class CreateBookingRequestDto(serializers.Serializer):
     show_id = serializers.IntegerField()
     show_seat_ids = serializers.ListField(child=serializers.IntegerField())
 
+
+class CreateBookingResponseDto(serializers.Serializer):
+    booking_id = serializers.IntegerField(required=False)
+    status = serializers.CharField(max_length=100)

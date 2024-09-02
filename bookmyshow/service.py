@@ -1,3 +1,5 @@
+import random
+
 from django.utils import timezone
 
 from bookmyshow.models import User, Show, ShowSeat, showSeatStatus, Ticket
@@ -31,16 +33,15 @@ class BookShowService:
                 show=show,
                 amount=100,
                 booking_status="PENDING",
-                ticket_number=timezone.now(),
+                ticket_number=random.randint(1, 9999)
             )
             booking.save()
             # TODO: create Payment...
-
             for show_seat in show_seats:
                 show_seat.show_seat_status = showSeatStatus.RESERVED
                 show_seat.save()
 
-            booking.show_seats = show_seats
+            booking.show_seats.set(show_seats)
             booking.save()
             return booking
         except Exception as e:

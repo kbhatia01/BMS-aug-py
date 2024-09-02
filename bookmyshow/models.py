@@ -76,7 +76,7 @@ class Seat(BaseModel):
     col_number = models.IntegerField()
     number = models.CharField(max_length=50)
     seat_type = models.TextField(choices=SeatType.choices)
-
+    screen = models.ForeignKey(Screen, on_delete=models.CASCADE)
 
 class showSeatStatus(models.TextChoices):
     AVAILABLE = 'AVAILABLE', 'Available'
@@ -93,10 +93,11 @@ class ShowSeat(BaseModel):
 
 class ShowSeatType(BaseModel):
     show = models.ForeignKey(Show, on_delete=models.CASCADE)
-    seat_type = models.ForeignKey(SeatType, on_delete=models.CASCADE)
+    seat_type = models.CharField(max_length=100, choices=SeatType.choices)
     price = models.IntegerField()
 
 
+# 1 : M
 class Ticket(BaseModel):
     ticket_number = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
