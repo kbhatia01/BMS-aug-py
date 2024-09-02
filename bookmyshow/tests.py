@@ -66,20 +66,27 @@ class BookShowTestCase(TransactionTestCase):
             features=self.feature
         )
 
+        self.show2, val = Show.objects.get_or_create(
+            movie=self.movie,
+            start_time=timezone.now(),
+            end_time=timezone.now() + timezone.timedelta(hours=2),
+            screen=self.screen,
+            features=self.feature
+        )
         self.showSeat, val = ShowSeat.objects.get_or_create(
-            show=self.show,
+            show=self.show2,
             seat=self.seat1,
             show_seat_status=showSeatStatus.AVAILABLE
         )
 
         self.showSeat, val = ShowSeat.objects.get_or_create(
-            show=self.show,
+            show=self.show2,
             seat=self.seat2,
             show_seat_status=showSeatStatus.AVAILABLE
         )
 
         self.ShowSeatType, val = ShowSeatType.objects.get_or_create(
-            show=self.show,
+            show=self.show2,
             seat_type=SeatType.SILVER,
             price=500
         )
@@ -91,18 +98,14 @@ class BookShowTestCase(TransactionTestCase):
 
         request_data = {
             'user_id': 1,
-            'show_id' : 1,
-            'show_seat_ids': [1,2]
+            'show_id' : 2,
+            'show_seat_ids': [3,4]
         }
 
         request = Mock()
         request.data = request_data
         booking = self.view.create_booking(request)
 
-        print(booking.data)
-
-
-
-
+        self.assertEqual(booking.show, self.show)
 
 

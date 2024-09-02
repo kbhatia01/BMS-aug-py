@@ -30,7 +30,7 @@ class BookingViewSet(viewsets.ViewSet):
 
             val = CreateBookingResponseDto(data=data)
             val.is_valid(raise_exception=True)
-            return Response(val.data)
+            return val.data
         except Exception as e:
             print(e)
-            return Response(CreateBookingResponseDto(data={"response_status":"FAILED"}).data)
+            return CreateBookingResponseDto(data={"response_status":"FAILED"}).data

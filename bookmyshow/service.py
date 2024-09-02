@@ -23,9 +23,12 @@ class BookShowService:
                 if show_seat.show_seat_status != showSeatStatus.AVAILABLE:
                     raise ValueError('Show seat status is not available')
 
+            # lock -
             for show_seat in show_seats:
                 show_seat.show_seat_status = showSeatStatus.LOCKED
                 show_seat.save()
+            #     UNLOCK
+
 
             # CREATE BOOKING:
             booking = Ticket(
@@ -36,7 +39,7 @@ class BookShowService:
                 ticket_number=random.randint(1, 9999)
             )
             booking.save()
-            # TODO: create Payment...
+            # TODO: create Payment.... :
             for show_seat in show_seats:
                 show_seat.show_seat_status = showSeatStatus.RESERVED
                 show_seat.save()
@@ -46,3 +49,11 @@ class BookShowService:
             return booking
         except Exception as e:
             print(e)
+
+
+
+# T1            T2
+
+#  1            3
+#  2            4
+# DEADLOCK: 3             1
